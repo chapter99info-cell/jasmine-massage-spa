@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#D9743A">
+<title>Jasmine Massage & Spa | South West Rocks NSW</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#D9743A;
+    --taupe:#A99A8B;
+    --cream:#FAF6F1;
+    --ink:#2B2622;
+    --line:#E7DFD6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Geist',sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.01em;}
+
+  /* Nav */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(250,246,241,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    max-width:1100px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 24px;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;color:var(--ink);}
+  .logo img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:1px solid var(--line);}
+  .nav-links{display:flex;gap:28px;list-style:none;}
+  .nav-links a{color:var(--ink);text-decoration:none;font-size:0.95rem;transition:color .25s;}
+  .nav-links a:hover{color:var(--orange);}
+  .nav-cta{
+    background:var(--orange);color:#fff;padding:10px 22px;border-radius:100px;
+    text-decoration:none;font-size:0.9rem;font-weight:500;transition:transform .25s, box-shadow .25s;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(217,116,58,0.3);}
+  .menu-toggle{display:none;background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--ink);}
+
+  /* Hero */
+  .hero{
+    max-width:1100px;margin:0 auto;
+    padding:80px 24px 100px;
+    display:grid;grid-template-columns:1.05fr 0.95fr;
+    gap:50px;align-items:center;
+    position:relative;
+  }
+  .hero-text{position:relative;z-index:2;}
+  .hero p.eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    color:var(--ink);font-size:0.85rem;letter-spacing:0.1em;
+    text-transform:uppercase;margin-bottom:22px;font-weight:500;
+  }
+  .hero p.eyebrow::before{
+    content:'';width:34px;height:2px;background:var(--orange);
+  }
+  .hero h1{
+    font-size:clamp(2.6rem,6vw,4rem);
+    line-height:1.08;margin-bottom:22px;
+  }
+  .hero h1 em{font-style:italic;color:var(--orange);}
+  .hero .sub{
+    max-width:420px;margin:0 0 36px;
+    color:#6b6258;font-size:1.05rem;
+  }
+  .hero-buttons{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--orange);color:#fff;padding:15px 32px;border-radius:100px;
+    text-decoration:none;font-weight:500;transition:transform .25s,box-shadow .25s;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(217,116,58,0.3);}
+  .btn-secondary{
+    background:transparent;color:var(--ink);padding:15px 32px;border-radius:100px;
+    text-decoration:none;font-weight:500;border:1.5px solid var(--line);
+    transition:border-color .25s,background .25s,transform .25s;
+  }
+  .btn-secondary:hover{border-color:var(--orange);background:#fff;transform:translateY(-2px);}
+
+  /* Hero visual: circular photo + decorative shapes */
+  .hero-visual{
+    position:relative;
+    display:flex;align-items:center;justify-content:center;
+    min-height:420px;
+  }
+  .hero-visual .photo-circle{
+    width:340px;height:340px;border-radius:50%;
+    overflow:hidden;
+    background:linear-gradient(135deg,var(--taupe) 0%, #cdbfae 100%);
+    box-shadow:0 30px 60px -20px rgba(43,38,34,0.25);
+    position:relative;z-index:2;
+    animation:floaty 7s ease-in-out infinite;
+  }
+  .hero-visual .photo-circle video{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .hero-visual .shape{
+    position:absolute;z-index:1;
+    animation:floaty 9s ease-in-out infinite;
+  }
+  .shape-diamond{
+    top:6%;left:0;width:54px;height:54px;
+    background:var(--orange);transform:rotate(45deg);
+    border-radius:6px;
+    animation-delay:0.4s;
+  }
+  .shape-ring{
+    bottom:10%;left:6%;width:90px;height:90px;
+    border:14px solid var(--ink);border-radius:50%;
+    opacity:0.08;
+    animation-delay:1.2s;
+  }
+  .shape-dot{
+    top:14%;right:4%;width:18px;height:18px;
+    background:var(--orange);border-radius:50%;
+    animation-delay:0.8s;
+  }
+  .shape-blob{
+    bottom:4%;right:0;width:130px;height:130px;
+    background:var(--cream);border:1px solid var(--line);
+    border-radius:38% 62% 60% 40% / 45% 45% 55% 55%;
+    z-index:0;animation-delay:0.2s;
+  }
+  @keyframes floaty{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-14px);}
+  }
+  .shape-diamond{animation-name:floaty-diamond;}
+  @keyframes floaty-diamond{
+    0%,100%{transform:rotate(45deg) translateY(0);}
+    50%{transform:rotate(45deg) translateY(-14px);}
+  }
+
+  /* Section base */
+  section{padding:80px 24px;}
+  .section-inner{max-width:1100px;margin:0 auto;}
+  .section-head{text-align:center;max-width:560px;margin:0 auto 50px;}
+  .section-head p.eyebrow{
+    color:var(--orange);font-size:0.85rem;letter-spacing:0.15em;
+    text-transform:uppercase;margin-bottom:14px;font-weight:500;
+  }
+  .section-head h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:14px;}
+  .section-head p{color:#6b6258;}
+
+  /* Services */
+  .services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  .service-card{
+    background:linear-gradient(160deg,#fff 0%, #FBF1E7 100%);
+    border:1px solid var(--line);border-radius:18px;
+    padding:32px;transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    position:relative;overflow:hidden;
+  }
+  .service-card::after{
+    content:'';position:absolute;top:-40px;right:-40px;
+    width:120px;height:120px;border-radius:50%;
+    background:radial-gradient(circle,rgba(217,116,58,0.10) 0%, rgba(217,116,58,0) 70%);
+    transition:transform .35s ease;
+  }
+  .service-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 44px rgba(43,38,34,0.10);
+    border-color:rgba(217,116,58,0.3);
+  }
+  .service-card:hover::after{transform:scale(1.4);}
+  .service-card .icon{
+    width:52px;height:52px;border-radius:14px;
+    background:var(--ink);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.4rem;margin-bottom:20px;position:relative;z-index:1;
+    transition:transform .35s ease, background .35s ease;
+  }
+  .service-card:hover .icon{background:var(--orange);transform:rotate(-8deg) scale(1.05);}
+  .service-card h3{font-size:1.4rem;margin-bottom:6px;position:relative;z-index:1;}
+  .service-card .tag{
+    display:inline-block;background:var(--cream);color:var(--orange);
+    font-size:0.78rem;font-weight:500;padding:4px 12px;border-radius:100px;
+    margin-bottom:18px;letter-spacing:0.04em;position:relative;z-index:1;
+  }
+  .price-table{list-style:none;position:relative;z-index:1;}
+  .price-table li{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 14px;margin:0 -14px;border-bottom:1px solid var(--line);
+    font-size:0.95rem;border-radius:12px;cursor:pointer;
+    transition:background .3s ease, padding .3s ease, transform .2s ease;
+    position:relative;overflow:hidden;
+  }
+  .price-table li:last-child{border-bottom:none;}
+  .price-table li:hover,
+  .price-table li:active,
+  .price-table li.active{
+    background:#fff;
+    box-shadow:0 12px 28px rgba(43,38,34,0.10);
+  }
+  .price-table .row-main{
+    display:flex;justify-content:space-between;align-items:center;
+    width:100%;position:relative;z-index:1;
+  }
+  .price-table span:first-child{color:#6b6258;transition:color .3s;}
+  .price-table li:hover span:first-child,
+  .price-table li.active span:first-child{color:var(--ink);font-weight:500;}
+  .price-table .price{
+    font-weight:600;color:var(--ink);transition:transform .3s ease, color .3s ease;
+    position:relative;
+  }
+  .price-table li:hover .price,
+  .price-table li.active .price{
+    color:var(--orange);
+    transform:scale(1.18) translateX(-4px);
+  }
+  /* แผงรูปภาพที่เด้งออกมาตอน hover/tap */
+  .price-table .preview{
+    max-height:0;overflow:hidden;
+    transition:max-height .35s ease, opacity .35s ease, margin .35s ease;
+    opacity:0;width:100%;
+  }
+  .price-table li:hover .preview,
+  .price-table li.active .preview{
+    max-height:90px;opacity:1;margin-top:12px;
+  }
+  .price-table .preview-inner{
+    display:flex;gap:12px;align-items:center;
+    background:linear-gradient(135deg,var(--taupe) 0%, #cdbfae 100%);
+    border-radius:12px;padding:10px 14px;color:#fff;
+  }
+  .price-table .preview-img{
+    width:54px;height:54px;border-radius:8px;flex-shrink:0;
+    overflow:hidden;
+    background:rgba(255,255,255,0.25);
+  }
+  .price-table .preview-img img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .price-table .preview-text{font-size:0.82rem;line-height:1.4;opacity:0.95;}
+
+  /* About / hours */
+  .about{
+    display:grid;grid-template-columns:1.1fr 1fr;gap:50px;align-items:center;
+  }
+  .about .ph{
+    aspect-ratio:4/5;border-radius:20px;
+    overflow:hidden;
+    background:linear-gradient(135deg,#E9DDCB 0%, var(--taupe) 100%);
+  }
+  .about .ph img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .about-content h2{margin-bottom:18px;font-size:clamp(1.8rem,4vw,2.4rem);}
+  .about-content p{color:#6b6258;margin-bottom:24px;}
+  .hours-list{list-style:none;border-top:1px solid var(--line);}
+  .hours-list li{
+    display:flex;justify-content:space-between;padding:12px 0;
+    border-bottom:1px solid var(--line);font-size:0.95rem;
+  }
+  .hours-list li span:last-child{font-weight:600;}
+
+  /* Gallery */
+  .gallery-filters{
+    display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;
+  }
+  .filter-btn{
+    border:1px solid var(--line);background:#fff;color:#6b6258;
+    padding:9px 22px;border-radius:100px;font-size:0.9rem;font-weight:500;
+    cursor:pointer;transition:all .25s ease;
+  }
+  .filter-btn:hover{border-color:var(--orange);color:var(--ink);}
+  .filter-btn.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-auto-rows:140px;
+    gap:14px;
+  }
+  .gallery-item{
+    border-radius:18px;overflow:hidden;position:relative;
+    background:linear-gradient(135deg,var(--taupe) 0%, #cdbfae 100%);
+    cursor:pointer;
+    grid-column:span 1;grid-row:span 1;
+    transition:transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease, opacity .3s ease;
+  }
+  .gallery-item img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .gallery-item.big{grid-column:span 2;grid-row:span 2;}
+  .gallery-item.tall{grid-row:span 2;}
+  .gallery-item:nth-child(2n){background:linear-gradient(135deg,#E9DDCB 0%, var(--taupe) 100%);}
+  .gallery-item:nth-child(3n){background:linear-gradient(135deg,#cdbfae 0%, #E2C8B8 100%);}
+  .gallery-item.hidden{display:none;}
+
+  /* แสงวิ่งผ่านตอน hover */
+  .gallery-item::before{
+    content:'';position:absolute;top:0;left:-150%;
+    width:60%;height:100%;
+    background:linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%);
+    transform:skewX(-20deg);
+    transition:left .7s ease;
+    z-index:2;
+  }
+  .gallery-item:hover::before{left:160%;}
+
+  /* เงาไล่สีด้านล่าง + ป้ายชื่อ */
+  .gallery-item::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to top, rgba(43,38,34,0.55) 0%, rgba(43,38,34,0) 55%);
+    opacity:0;transition:opacity .35s ease;
+    z-index:1;
+  }
+  .gallery-item:hover::after{opacity:1;}
+  .gallery-item span{
+    position:absolute;left:16px;bottom:14px;z-index:3;
+    color:#fff;font-size:0.85rem;font-weight:500;
+    letter-spacing:0.02em;opacity:0;
+    transform:translateY(10px);
+    transition:opacity .35s ease, transform .35s ease;
+  }
+  .gallery-item:hover span{opacity:1;transform:translateY(0);}
+
+  .gallery-item:hover{
+    transform:translateY(-6px) scale(1.015);
+    box-shadow:0 22px 46px rgba(43,38,34,0.22);
+    z-index:5;
+  }
+  /* Reviews */
+  .google-rating{
+    display:flex;align-items:center;gap:14px;justify-content:center;
+    margin-bottom:32px;
+  }
+  .g-icon{
+    width:42px;height:42px;border-radius:50%;
+    background:#fff;border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-weight:600;font-size:1.2rem;
+    color:#4285F4;
+  }
+  .g-stars{color:#F4B400;font-size:1.05rem;letter-spacing:2px;}
+  .g-text{font-size:0.85rem;color:#6b6258;margin-top:2px;}
+  .g-text a{color:var(--orange);text-decoration:none;font-weight:500;}
+  .g-text a:hover{text-decoration:underline;}
+
+  .reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  .review-card{
+    background:#fff;border:1px solid var(--line);border-radius:18px;
+    padding:32px;color:#6b6258;transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .review-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(43,38,34,0.08);}
+  .review-stars{color:#F4B400;letter-spacing:2px;margin-bottom:14px;font-size:1rem;}
+  .review-card p{font-style:italic;margin-bottom:14px;}
+  .review-author{font-size:0.85rem;color:var(--ink);font-weight:500;}
+
+  /* Find Us: map + social */
+  .find-us-grid{
+    display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:stretch;
+  }
+  .map-wrap{
+    border-radius:18px;overflow:hidden;border:1px solid var(--line);
+    min-height:320px;box-shadow:0 16px 36px rgba(43,38,34,0.06);
+  }
+  .social-links{display:flex;flex-direction:column;gap:16px;}
+  .social-card{
+    flex:1;display:flex;align-items:center;gap:18px;
+    background:#fff;border-radius:18px;
+    padding:22px 24px;text-decoration:none;color:var(--ink);
+    position:relative;overflow:hidden;
+    border:1px solid var(--line);
+    transition:transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease, border-color .4s ease;
+  }
+  /* เส้นขอบไล่สีที่ปรากฏตอน hover */
+  .social-card::before{
+    content:'';position:absolute;inset:0;border-radius:18px;
+    padding:1.5px;
+    background:linear-gradient(135deg, var(--orange), #F4C95D, var(--taupe));
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;
+    opacity:0;transition:opacity .4s ease;
+    pointer-events:none;
+  }
+  /* แสงวิ่งผ่านตอน hover */
+  .social-card::after{
+    content:'';position:absolute;top:0;left:-150%;
+    width:60%;height:100%;
+    background:linear-gradient(110deg, transparent 0%, rgba(217,116,58,0.10) 50%, transparent 100%);
+    transform:skewX(-20deg);
+    transition:left .7s ease;
+  }
+  .social-card:hover::after{left:160%;}
+  .social-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 20px 40px rgba(43,38,34,0.12);
+    border-color:transparent;
+  }
+  .social-card:hover::before{opacity:1;}
+  .social-icon{
+    width:48px;height:48px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:600;font-size:1.15rem;flex-shrink:0;color:#fff;
+    position:relative;z-index:1;
+    transition:transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s ease;
+  }
+  .social-card:hover .social-icon{
+    transform:scale(1.12) rotate(-6deg);
+    box-shadow:0 8px 18px rgba(43,38,34,0.18);
+  }
+  .social-card.facebook .social-icon{background:#1877F2;font-family:Georgia,serif;}
+  .social-card.google .social-icon{background:#fff;border:1px solid var(--line);color:#4285F4;font-family:'Fraunces',serif;}
+  .social-card.call .social-icon{background:var(--orange);}
+  .social-title{font-weight:600;font-size:0.98rem;position:relative;z-index:1;}
+  .social-sub{font-size:0.82rem;color:#9a9085;margin-top:2px;position:relative;z-index:1;transition:color .3s ease;}
+  .social-card:hover .social-sub{color:#6b6258;}
+  /* ลูกศรเลื่อนเข้ามาตอน hover */
+  .social-card .arrow{
+    margin-left:auto;font-size:1.2rem;color:var(--orange);
+    opacity:0;transform:translateX(-8px);
+    transition:opacity .35s ease, transform .35s ease;
+    position:relative;z-index:1;
+  }
+  .social-card:hover .arrow{opacity:1;transform:translateX(0);}
+
+  /* ดอกมะลิลอยใน background — บานเบาๆ ทั่วทั้งหน้า */
+  .jasmine-field{
+    position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;
+  }
+  .petal{
+    position:absolute;top:-8%;
+    width:22px;height:22px;
+    opacity:0;
+    animation-name:petal-fall, petal-fade;
+    animation-timing-function:linear, ease-in-out;
+    animation-iteration-count:infinite, infinite;
+  }
+  .petal svg{width:100%;height:100%;display:block;}
+  @keyframes petal-fall{
+    0%{transform:translate(0,0) rotate(0deg);}
+    100%{transform:translate(var(--drift,40px), 110vh) rotate(360deg);}
+  }
+  @keyframes petal-fade{
+    0%{opacity:0;}
+    8%{opacity:0.55;}
+    85%{opacity:0.45;}
+    100%{opacity:0;}
+  }
+  /* เนื้อหาทุกอย่างอยู่เหนือชั้นดอกไม้ */
+  header, .hero, section, footer, .mobile-bar{position:relative;z-index:1;}
+
+  /* Contact / CTA */
+  .cta-section{
+    background:var(--ink);color:#fff;border-radius:28px;
+    max-width:1100px;margin:0 auto;padding:64px 40px;text-align:center;
+  }
+  .cta-section h2{color:#fff;margin-bottom:14px;}
+  .cta-section p{color:#cfc7bd;margin-bottom:32px;}
+  .cta-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .cta-buttons .btn-primary{background:var(--orange);}
+  .cta-buttons .btn-primary:hover{box-shadow:0 10px 24px rgba(217,116,58,0.35);}
+  .cta-buttons .btn-secondary{border-color:#4a4239;color:#fff;}
+  .cta-buttons .btn-secondary:hover{border-color:var(--orange);background:transparent;}
+
+  /* Footer */
+  footer{
+    text-align:center;padding:40px 24px;color:#9a9085;font-size:0.85rem;
+    border-top:1px solid var(--line);
+  }
+  footer .addr{margin-bottom:6px;color:#6b6258;}
+  .footer-links{margin-top:12px;display:flex;justify-content:center;align-items:center;gap:8px;}
+  .footer-links a{
+    color:var(--orange);text-decoration:none;font-weight:500;
+    transition:opacity .25s ease;
+  }
+  .footer-links a:hover{opacity:0.7;text-decoration:underline;}
+  .footer-links .dot{color:var(--line);}
+
+  /* Sticky mobile call bar */
+  .mobile-bar{
+    display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;
+    background:#fff;border-top:1px solid var(--line);
+    padding:12px 16px;gap:12px;
+    box-shadow:0 -8px 24px rgba(0,0,0,0.06);
+  }
+  .mobile-bar a{
+    flex:1;text-align:center;padding:13px 0;border-radius:100px;
+    text-decoration:none;font-weight:500;font-size:0.95rem;
+  }
+  .mobile-bar .call{background:var(--cream);color:var(--ink);border:1px solid var(--line);}
+  .mobile-bar .book{background:var(--orange);color:#fff;}
+
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr;text-align:center;padding-top:30px;}
+    .hero-text{order:1;}
+    .hero p.eyebrow{justify-content:center;}
+    .hero-buttons{justify-content:center;}
+    .hero .sub{margin:0 auto 36px;}
+    .hero-visual{order:0;min-height:320px;margin-bottom:10px;}
+    .hero-visual .photo-circle{width:240px;height:240px;}
+    .nav-links{
+      position:absolute;top:100%;left:0;right:0;
+      background:var(--cream);flex-direction:column;
+      padding:20px 24px;gap:18px;border-bottom:1px solid var(--line);
+      display:none;
+    }
+    .nav-links.open{display:flex;}
+    .menu-toggle{display:block;}
+    .nav-cta{display:none;}
+    .services-grid{grid-template-columns:1fr;}
+    .gallery-grid{
+      grid-template-columns:repeat(2,1fr);
+      grid-auto-rows:120px;gap:10px;
+    }
+    .gallery-item.big{grid-column:span 2;grid-row:span 1;}
+    .gallery-item span{opacity:1;transform:none;font-size:0.78rem;}
+    .gallery-item::after{opacity:0.65;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+    .about{grid-template-columns:1fr;}
+    .about .ph{order:-1;aspect-ratio:16/9;}
+    .mobile-bar{display:flex;}
+    body{padding-bottom:72px;}
+    .hero{padding-top:30px;}
+    .reviews-grid{grid-template-columns:1fr;}
+    .find-us-grid{grid-template-columns:1fr;}
+    .map-wrap{min-height:240px;}
+    .petal:nth-child(n+9){display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="jasmine-field" id="jasmineField" aria-hidden="true"></div>
+
+<header>
+  <nav>
+    <div class="logo">
+      <img src="/images/logo/logo-jasmine-spa.png" alt="Jasmine Massage & Spa">
+      <span>Jasmine Massage & Spa</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Menu</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#find-us">Find Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#book-online" class="nav-cta">Book Online</a>
+    <button class="menu-toggle" id="menuToggle">&#9776;</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <p class="eyebrow">South West Rocks, NSW</p>
+    <h1>Slow down,<br>breathe a little <em>deeper</em>.</h1>
+    <p class="sub">Traditional Thai and aromatherapy massage in the heart of South West Rocks — restoring calm, one session at a time.</p>
+    <div class="hero-buttons">
+      <a href="#book-online" class="btn-primary">Book Now &rarr;</a>
+      <a href="#services" class="btn-secondary">View Menu</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="shape shape-blob"></div>
+    <div class="shape shape-ring"></div>
+    <div class="shape shape-diamond"></div>
+    <div class="shape shape-dot"></div>
+    <div class="photo-circle">
+      <video autoplay muted loop playsinline aria-label="Jasmine Massage & Spa — hero cover">
+        <source src="/images/hero/jasman-cover.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="eyebrow">Our Space</p>
+      <h2>A Moment of Calm, <em>Captured</em></h2>
+      <p>Step inside — treatment rooms, ambience and the little details that make Jasmine feel like a retreat.</p>
+    </div>
+    <div class="gallery-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="interior">Interior</button>
+      <button class="filter-btn" data-filter="treatment">Treatments</button>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item big" data-cat="interior">
+        <img src="/images/gallery/relaxation-lounge.png" alt="Relaxation Lounge" loading="lazy">
+        <span>Relaxation Lounge</span>
+      </div>
+      <div class="gallery-item" data-cat="treatment">
+        <img src="/images/gallery/aromatherapy-oils.png" alt="Aromatherapy Oils" loading="lazy">
+        <span>Aromatherapy Oils</span>
+      </div>
+      <div class="gallery-item" data-cat="treatment">
+        <img src="/images/gallery/thai-massage-room.png" alt="Thai Massage Room" loading="lazy">
+        <span>Thai Massage Room</span>
+      </div>
+      <div class="gallery-item" data-cat="interior">
+        <img src="/images/gallery/reception.png" alt="Reception" loading="lazy">
+        <span>Reception</span>
+      </div>
+      <div class="gallery-item tall" data-cat="treatment">
+        <img src="/images/gallery/treatment-detail.png" alt="Treatment Detail" loading="lazy">
+        <span>Treatment Detail</span>
+      </div>
+      <div class="gallery-item" data-cat="interior">
+        <img src="/images/gallery/spa-entrance.png" alt="Spa Entrance" loading="lazy">
+        <span>Spa Entrance</span>
+      </div>
+      <div class="gallery-item" data-cat="treatment">
+        <img src="/images/gallery/hot-stone-setup.png" alt="Hot Stone Setup" loading="lazy">
+        <span>Hot Stone Setup</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="eyebrow">Our Treatments</p>
+      <h2>Massage Menu & Pricing</h2>
+      <p>Choose your duration — every session is tailored to how much time you have.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="icon">&#127800;</div>
+        <span class="tag">Relax & Restore</span>
+        <h3>Aromatherapy Massage</h3>
+        <ul class="price-table">
+          <li class="price-row"><div class="row-main"><span>30 minutes</span><span class="price">$55</span></div>
+            <div class="preview"><div class="preview-inner"><div class="preview-img"><img src="/images/gallery/relaxation-lounge.png" alt="Aromatherapy massage"></div><div class="preview-text">A short refresh — light pressure with calming aromatherapy oils.</div></div></div>
+          </li>
+          <li class="price-row"><div class="row-main"><span>45 minutes</span><span class="price">$85</span></div>
+            <div class="preview"><div class="preview-inner"><div class="preview-img"><img src="/images/gallery/aromatherapy-oils.png" alt="Aromatherapy oils"></div><div class="preview-text">Extra time to ease tension in the neck, shoulders and back.</div></div></div>
+          </li>
+          <li class="price-row"><div class="row-main"><span>60 minutes</span><span class="price">$95</span></div>
+            <div class="preview"><div class="preview-inner"><div class="preview-img"><img src="/images/gallery/reception.png" alt="Spa relaxation"></div><div class="preview-text">Our most popular full-body relaxation session.</div></div></div>
+          </li>
+          <li class="price-row"><div class="row-main"><span>90 minutes</span><span class="price">$145</span></div>
+            <div class="preview"><div class="preview-inner"><div class="preview-img"><img src="/images/gallery/treatment-detail.png" alt="Treatment detail"></div><div class="preview-text">A deeper, slower journey for total stress relief.</div></div></div>
+          </li>
+          <li class="price-row"><div class="row-main"><span>120 minutes</span><span class="price">$190</span></div>
+            <div class="preview"><div class="preview-inner"><div class="preview-img"><img src="/images/gallery/spa-entrance.png" alt="Spa entrance"></div><div class="preview-text">The ultimate escape — head-to-toe care, no rush.</div></div></div>
+          </li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="icon">&#9899;</div>
+        <span class="tag">Traditional Technique</span>
+        <h3>Thai Massage</h3>
+        <ul class="price-table">
+          <li class="price-row"><div class="row-main"><span>30 minutes</span><span class="price">$55</span></div>
+            <div class="preview"><div class="preview-inner"><div class="preview-img"><img src="/images/gallery/hot-stone-setup.png" alt="Thai massage"></div><div class="preview-text">Quick stretch & pressure-point release for tired muscles.</div></div></div>
+          </li>
+          <li class="price-row"><div class="row-main"><span>45 minutes</span><span class="price">$85</span></div>
+            <div class="preview"><div class="preview-inner"><div class="preview-img"><img src="/images/gallery/thai-massage-room.png" alt="Thai massage room"></div><div class="preview-text">Traditional stretching combined with deep muscle work.</div></div></div>
+          </li>
+          <li class="price-row"><div class="row-main"><span>60 minutes</span><span class="price">$95</span></div>
+            <div class="preview"><div class="preview-inner"><div class="preview-img"><img src="/images/gallery/hot-stone-setup.png" alt="Thai massage treatment"></div><div class="preview-text">Full-body Thai massage — our classic favourite.</div></div></div>
+          </li>
+          <li class="price-row"><div class="row-main"><span>90 minutes</span><span class="price">$145</span></div>
+            <div class="preview"><div class="preview-inner"><div class="preview-img"><img src="/images/gallery/treatment-detail.png" alt="Extended Thai massage"></div><div class="preview-text">Extended session for deeper, longer-lasting relief.</div></div></div>
+          </li>
+          <li class="price-row"><div class="row-main"><span>120 minutes</span><span class="price">$190</span></div>
+            <div class="preview"><div class="preview-inner"><div class="preview-img"><img src="/images/gallery/spa-entrance.png" alt="Complete Thai therapy"></div><div class="preview-text">The complete Thai therapy experience, top to toe.</div></div></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-inner about">
+    <div class="ph">
+      <img src="/images/gallery/thai-massage-room.png" alt="Thai massage room at Jasmine Massage & Spa, South West Rocks" loading="lazy">
+    </div>
+    <div class="about-content">
+      <h2>A quiet space for your wellbeing</h2>
+      <p>Located in South West Rocks, Jasmine Massage & Spa offers a calm escape with treatments rooted in traditional Thai techniques and aromatherapy. Walk-ins and online bookings welcome.</p>
+      <ul class="hours-list">
+        <li><span>Monday – Sunday</span><span>9:00 AM – 5:00 PM</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="eyebrow">What Clients Say</p>
+      <h2>Reviews</h2>
+      <p>Real feedback from our Google Business profile.</p>
+    </div>
+    <div class="google-rating">
+      <div class="g-icon">G</div>
+      <div>
+        <div class="g-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="g-text">Rated on Google · <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">Write a review</a></div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Customer reviews coming soon — be one of our first to share your experience!"</p>
+        <div class="review-author">— New on Google</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Leave us a review after your visit and help others discover Jasmine."</p>
+        <div class="review-author">— Your name here</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="find-us">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="eyebrow">Visit Us</p>
+      <h2>Find Us</h2>
+      <p>Shop 5/12 Gregory Street, South West Rocks, NSW 2431</p>
+    </div>
+    <div class="find-us-grid">
+      <div class="map-wrap">
+        <iframe
+          src="https://www.google.com/maps?q=Shop+5/12+Gregory+Street,+South+West+Rocks+NSW+2431&output=embed"
+          width="100%" height="100%" style="border:0;" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+      <div class="social-links">
+        <a href="https://www.facebook.com/" target="_blank" class="social-card facebook">
+          <div class="social-icon">f</div>
+          <div>
+            <div class="social-title">Facebook</div>
+            <div class="social-sub">Follow for updates & specials</div>
+          </div>
+          <span class="arrow">&rarr;</span>
+        </a>
+        <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer" class="social-card google">
+          <div class="social-icon">G</div>
+          <div>
+            <div class="social-title">Google Reviews</div>
+            <div class="social-sub">See what clients are saying</div>
+          </div>
+          <span class="arrow">&rarr;</span>
+        </a>
+        <a href="tel:+61000000000" class="social-card call">
+          <div class="social-icon">&#9742;</div>
+          <div>
+            <div class="social-title">Call Us</div>
+            <div class="social-sub">9:00 AM – 5:00 PM daily</div>
+          </div>
+          <span class="arrow">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="cta-section" id="book-online">
+    <h2>Ready to relax?</h2>
+    <p>Shop 5/12 Gregory Street, South West Rocks, NSW 2431 · Open daily 9am – 5pm</p>
+    <div class="cta-buttons">
+      <a href="tel:+61000000000" class="btn-secondary">Call to Book</a>
+      <a href="#book-online" class="btn-primary">Book Online</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div id="privacy-policy" hidden aria-hidden="true"></div>
+  <div id="terms-of-service" hidden aria-hidden="true"></div>
+  <p class="addr">Jasmine Massage & Spa · Shop 5/12 Gregory Street, South West Rocks, NSW 2431</p>
+  <p>&copy; 2026 Jasmine Massage & Spa. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="#privacy-policy">Privacy Policy</a>
+    <span class="dot">&middot;</span>
+    <a href="#terms-of-service">Terms of Service</a>
+  </div>
+</footer>
+
+<div class="mobile-bar">
+  <a href="tel:+61000000000" class="call">Call</a>
+  <a href="#book-online" class="book">Book Online</a>
+</div>
+
+<script>
+  document.getElementById('menuToggle').addEventListener('click', function(){
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  // ปิดเมนูเมื่อกดลิงก์ (มือถือ)
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'));
+  });
+
+  // กดที่แถวราคา (มือถือ) เพื่อเปิด/ปิดแผงรูปภาพ — บนเดสก์ท็อปใช้ hover อยู่แล้ว
+  document.querySelectorAll('.price-row').forEach(row=>{
+    row.addEventListener('click', function(){
+      const wasActive = row.classList.contains('active');
+      document.querySelectorAll('.price-row.active').forEach(r=>{
+        if(r!==row) r.classList.remove('active');
+      });
+      row.classList.toggle('active', !wasActive);
+    });
+  });
+
+  // กรองรูปภาพในแกลเลอรี่ตามหมวดหมู่
+  document.querySelectorAll('.filter-btn').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.gallery-item').forEach(item=>{
+        item.classList.toggle('hidden', filter!=='all' && item.dataset.cat!==filter);
+      });
+    });
+  });
+
+  // สร้างดอกมะลิลอยอยู่ใน background แบบสุ่มตำแหน่ง/ความเร็ว/ขนาด
+  (function(){
+    const field = document.getElementById('jasmineField');
+    const petalSVG = `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#ffffff" stroke="#F4E9DC" stroke-width="2">
+          <ellipse cx="50" cy="28" rx="14" ry="22" transform="rotate(0 50 50)"/>
+          <ellipse cx="50" cy="28" rx="14" ry="22" transform="rotate(72 50 50)"/>
+          <ellipse cx="50" cy="28" rx="14" ry="22" transform="rotate(144 50 50)"/>
+          <ellipse cx="50" cy="28" rx="14" ry="22" transform="rotate(216 50 50)"/>
+          <ellipse cx="50" cy="28" rx="14" ry="22" transform="rotate(288 50 50)"/>
+          <circle cx="50" cy="50" r="8" fill="#F4C95D" stroke="none"/>
+        </g>
+      </svg>`;
+    const total = 14;
+    for(let i=0;i<total;i++){
+      const petal = document.createElement('div');
+      petal.className='petal';
+      const size = 14 + Math.random()*18;          // ขนาดดอก 14-32px
+      const left = Math.random()*100;              // ตำแหน่งแนวนอนเริ่มต้น
+      const duration = 18 + Math.random()*22;      // ความเร็วการร่วง 18-40s
+      const delay = Math.random()*-40;             // หน่วงเวลาให้กระจายไม่พร้อมกัน
+      const drift = (Math.random()*160-80)+'px';   // ทิศการลอยเอียงซ้าย/ขวา
+      petal.style.left = left+'vw';
+      petal.style.width = size+'px';
+      petal.style.height = size+'px';
+      petal.style.setProperty('--drift', drift);
+      petal.style.animationDuration = duration+'s, '+duration+'s';
+      petal.style.animationDelay = delay+'s, '+delay+'s';
+      petal.innerHTML = petalSVG;
+      field.appendChild(petal);
+    }
+  })();
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js');
+    });
+  }
+</script>
+
+</body>
+</html>
