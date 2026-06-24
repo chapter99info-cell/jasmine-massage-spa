@@ -11,3 +11,18 @@ export const NAV_ITEMS = [
   { label: 'นวดแผนไทย', href: '#thai-massage' },
   { label: 'จองนัด', href: '#book' },
 ] as const;
+
+export const PRICING = [
+  { duration: '30 minutes', price: '$55' },
+  { duration: '45 minutes', price: '$85' },
+  { duration: '60 minutes', price: '$95' },
+  { duration: '90 minutes', price: '$145' },
+  { duration: '120 minutes', price: '$190' },
+] as const;
+
+export const BUSINESS = {
+  name: 'Jasmine Massage & Spa',
+  address: 'Shop 5/12 Gregory Street, South West Rocks, NSW 2431',
+  hours: 'Monday – Sunday · 9:00 AM – 5:00 PM',
+  phone: '+61000000000',
+} as const;
